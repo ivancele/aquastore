@@ -19,10 +19,14 @@ class CreateFishTable extends Migration
             $table->string('common_name'); //Common name or human name
             $table->string('species'); //Species or scientific name
             $table->string('color');
-            $table->integer('fins');
+            $table->integer('fins'); //Some of these numbers are just arbitrary values
             $table->double('weight')->nullable(); //Weight in grams
             $table->double('length')->nullable(); //Length in CMs
             $table->double('avg_aquarium_temperature')->nullable(); //
+            $table->integer('age')->nullable(); //Age in months //TODO: convert to years on get
+            $table->string('diet')->nullable();
+            $table->double('min_aquarium_size')->default(0); //Zero if no minimum is specified.
+            $table->string('info_link')->nullable(); //Link to a website with more info on the fish
             $table->timestamps();
         });
     }
