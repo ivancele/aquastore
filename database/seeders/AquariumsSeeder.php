@@ -19,6 +19,7 @@ class AquariumsSeeder extends Seeder
         $glass_types = ['typea', 'typeb', 'typec', 'typed']; //TODO: move this to it's own model and db and just create a relationship
         $shapes = ['sqaure', 'rectangle', 'circle', 'oval'];
         $has_water = [true, false];
+        $planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
         //Create a few aquariums: attr: 'glass_type' ,'size' ,'shape' ,'has_water' ,'max_capacity', 'temperature'
 
         for($i=5; $i < 200; $i+=25){
@@ -30,6 +31,12 @@ class AquariumsSeeder extends Seeder
                 'max_capacity' => rand(1,50),
                 'temperature' => rand(1,50)
             ]);
+        }
+
+        for($i = 0; $i < 8; $i++){
+            $aquarium = Aquariums::find($i+1);
+            $aquarium->nickname = $planets[$i];
+            $aquarium->save();
         }
     }
 }

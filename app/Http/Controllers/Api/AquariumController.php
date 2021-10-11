@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Aquariums;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class AquariumController extends Controller
 {
@@ -13,8 +13,13 @@ class AquariumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $country = $request->query("country");
+        if (isset($country)) {
+            Aquariums::setCountry($country);
+        }
+        
         return response()->json([
             'error' => null,
             'message' => 'All aquariums found in the AquaStore',

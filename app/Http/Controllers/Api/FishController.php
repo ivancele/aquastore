@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Fish;
-use App\Models\Aquariums;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\QueryException;
 use App\Http\Requests\CreateFishRequest;
 use App\Http\Requests\UpdateFishRequest;
+use App\Models\Aquariums;
+use App\Models\Fish;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class FishController extends Controller
 {
@@ -22,15 +23,21 @@ class FishController extends Controller
         ]);
     }
 
-    public function findByAquarium($aquariumID)
+    public function findByAquarium($aquariumID, Request $request)
     {
         $Aquarium = Aquariums::find($aquariumID);
+
+        $country = $request->query("country");
+        if (isset($country)) {
+            Aquariums::setCountry($country);
+        }
 
         if ($Aquarium) {
             return response()->json([
                 'error' => null,
                 'message' => 'Here is a list of all fish in the specified aquarium',
                 'data' => $Aquarium->fish,
+                'aquarium' => $Aquarium->withoutRelations(),
             ]);
         } else {
             return response()->json([
@@ -75,9 +82,26 @@ class FishController extends Controller
             }
         }
 
-        //if fish isn't goldgish or guppy and doesn't have aquarium select one now randomly
+        if ($data['fins'] >= 3) {
+            if (isset($data['aquarium_id'])) {
+                $aquarium = Aquariums::findOrFail($data['aquarium_id']);
+                if ($aquarium->size <= 75) {
+                    return response()->json([
+                        'error' => 'Small Aquarium',
+                        'message' => 'Your fish has '.$data['fins'].' fins, please select a bigger Aquarium',
+                        'available_aquariums' => Aquariums::where('size', '>', '75')->get(), //this doesn't consider guppies or goldfish,
+                    ]);
+                }
+            }
+        }
+
+        //if fish isn't goldgish or guppy and doesn't have aquarium select one now randomly and make sure that fish with 3 fins do not go into tanks with less than 75 litres
         if (!isset($data['aquarium_id'])) {
-            $data['aquarium_id'] = Aquariums::where('has_water', true)->inRandomOrder()->first()->id;
+            if ($data['fins'] >= 3) {
+                $data['aquarium_id'] = Aquariums::where('size', '>', 75)->where('has_water', true)->inRandomOrder()->first()->id;
+            } else {
+                $data['aquarium_id'] = Aquariums::where('has_water', true)->inRandomOrder()->first()->id;
+            }
         }
 
         try {
@@ -143,6 +167,24 @@ class FishController extends Controller
                     'error' => 'Aquarium not found',
                     'message' => 'The selected Aquarium was not found',
                 ]);
+            }
+        }
+
+        if ($data['fins'] >= 3 || $fish->fins) {
+            if (isset($data['aquarium_id']) || $fish->aquarium_id) {
+                if(isset($data['aquarium_id'])){
+                    $aquarium = Aquariums::findOrFail($data['aquarium_id']);
+                }else{
+                    $aquarium = Aquariums::findOrFail($fish->aquarium_id);
+                }
+
+                if ($aquarium->size <= 75) {
+                    return response()->json([
+                        'error' => 'Small Aquarium',
+                        'message' => 'Please select a bigger Aquarium',
+                        'available_aquariums' => Aquariums::where('size', '>', '75')->get(), //this doesn't consider guppies or goldfish,
+                    ]);
+                }
             }
         }
 

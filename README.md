@@ -10,7 +10,7 @@ The back-end is done with Laravel 8 (the latest), to get started (*or just use t
 - copy .env.example file to .env and update the **db configuration**, (I did this with MySQL)
 - run `php artisan key:gen`
 - you can also set the debug flag to false.
-- run `php artisan migrate:fresh --seed` to create database tables and fill them with dummy or default data found in `database/seeders/` dir
+- run `php artisan migrate:fresh --seed` to create database tables and fill them with dummy or default data found in `database/seeders/` dir (seeding might fail, re-run if it fails)
 
 ## Usage instructions
 
@@ -32,3 +32,11 @@ I have taken the liberty to deploy the backend, it is up and running on `https:/
 ## Side notes
 
 I have added a few database entries that I didn't use due to the time constraints.
+The country can be passed as a get param on the URL `/aquariums?country=US`
+I have also added a labels on *accessors* on laravel for Age, Temperature and Size
+
+## Conclusion
+
+It has been an absolute pleasure working on this fun project, I do not know much about fish, pets and aquariums, some facts were quiet interesting.
+
+I am a self taught developer, I have been coding for a few years, I have been afraid to apply for dev jobs (this is the second time) because I have been afraid that I do not know enough, I hope to get constructive feedback on where I need to improve, I am more than willing to learn. I understand that some of my practices might not be the best in practices, however I do my best to write quality code, with the information I have and the experience.
