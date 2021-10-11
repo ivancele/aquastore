@@ -126,7 +126,7 @@ class FishController extends Controller
         $data = $request->validated();
 
         //This will return if the user passed an empty aquarium_id and fish prev had an aquarium_id (this will always be the case as we pick a random one on create)
-        if (!$data['aquarium_id'] && $fish->aquarium_id) {
+        if (!isset($data['aquarium_id'])  && $fish->aquarium_id) {
             return response()->json([
                 'error' => 'No Aquarium',
                 'message' => 'Sorry, the fish needs to be in an aquarium you cannot leave aquarium_id blank',
