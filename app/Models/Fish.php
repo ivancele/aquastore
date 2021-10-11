@@ -9,5 +9,5 @@ class Fish extends Model
 {
     use HasFactory;
 
-    protected $fillable=[ 'aquarium_id', 'species', 'color', 'fins', 'weight'];
+    protected $fillable = ['aquarium_id', 'common_name', 'species', 'color', 'fins', 'weight', 'length', 'avg_aquarium_temperature', 'age', 'diet', 'min_aquarium_size', 'info_link'];
 }

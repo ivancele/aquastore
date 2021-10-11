@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Database\Seeders\FishSeeder;
+use Illuminate\Support\Facades\Hash;
 use Database\Seeders\AquariumsSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,7 +22,7 @@ class DatabaseSeeder extends Seeder
             'name' => "Aqua Store API",
             'email' => 'api@aquastore.app',
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => Hash::make('Aqu@$t0r3'), // Aqu@$t0r3
             'remember_token' => Str::random(10),
         ]); 
         //Create a test account

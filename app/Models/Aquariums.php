@@ -18,4 +18,15 @@ class Aquariums extends Model
     {
         return $this->hasMany(Fish::class, 'aquarium_id', 'id');
     }
+
+    public function hasGuppies(){
+        $guppiesCount = Fish::where('aquarium_id', '=', $this->id)->where('common_name', 'Guppy')->count();
+        return $guppiesCount > 0 ? true: false;
+    }
+
+    public function hasGoldfish(){
+        $guppiesCount = Fish::where('aquarium_id', '=', $this->id)->where('common_name', 'Goldfish')->count();
+        return $guppiesCount > 0 ? true: false;
+    }
+
 }
