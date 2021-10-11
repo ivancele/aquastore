@@ -5,8 +5,10 @@ I have a few things to note.
 
 The back-end is done with Laravel 8 (the latest), to get started:
 
-- Clone this repository
+- Clone this repository (via http to avoid auth)
+- cd aquastore (or the base of the repository) run composer install
 - copy .env.example file to .env and update the **db configuration**, (I did this with MySQL)
+- run `php artisan key:gen`
 - you can also set the debug flag to false.
 - run `php artisan migrate:fresh --seed` to create database tables and fill them with dummy or default data found in `database/seeders/` dir
 
