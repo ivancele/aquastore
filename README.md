@@ -3,7 +3,7 @@
 Thank you for the opportunity to share what I have been exposed to over the years, it is a real pleasure to me.
 I have a few things to note.
 
-The back-end is done with Laravel 8 (the latest), to get started:
+The back-end is done with Laravel 8 (the latest), to get started (*or just use the running instance as noted below*):
 
 - Clone this repository (via http to avoid auth)
 - cd aquastore (or the base of the repository) run composer install
@@ -24,3 +24,11 @@ I have exposed a few API endpoints
    - `/fish/{id}` - method = POST **with hidden field `_method=PATCH`** this method will update the given fish
 
 To interact with the protected endpoints you'll need a token, to get a token please send a `POST` request to `/get-token` with `email, password` fields to login and email is `api@aquastore.app` password: `Aqu@$t0r3`, in Postman, in Authorization, set Type to Bearer Token and paste your `acccess_token` for all requests to the above protected endpoints
+
+## Running instance
+
+I have taken the liberty to deploy the backend, it is up and running on `https://aquastore.njabuloi.co.za/` anyone can use Postman (or any other client) to query the API.
+
+## Side notes
+
+I have added a few database entries that I didn't use due to the time constraints.
