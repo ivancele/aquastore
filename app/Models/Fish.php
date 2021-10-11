@@ -11,6 +11,10 @@ class Fish extends Model
 
     protected $fillable = ['aquarium_id', 'common_name', 'species', 'color', 'fins', 'weight', 'length', 'avg_aquarium_temperature', 'age', 'diet', 'min_aquarium_size', 'info_link'];
 
+    protected $casts = [
+        'aquarium_id' => 'integer',
+    ];
+
     public function getAgeAttribute($value){
         //This may be undesired if front end is going to handle filtering for example but why not
         if($value/12 < 1){
