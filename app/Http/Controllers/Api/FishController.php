@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Fish;
+use App\Models\Aquariums;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\QueryException;
 use App\Http\Requests\CreateFishRequest;
 use App\Http\Requests\UpdateFishRequest;
-use App\Models\Aquariums;
-use App\Models\Fish;
-use Illuminate\Database\QueryException;
+use Illuminate\Database\Eloquent\Builder;
 
 class FishController extends Controller
 {
@@ -116,7 +117,6 @@ class FishController extends Controller
                         'error' => 'Guppies!!',
                         'message' => 'You cannot put Goldfish and Guppies together, please select another Aquarium',
                         'available_aquariums' => Aquariums::where('has_water', true)->whereDoesntHave('fish', function (Builder $query) {$query->where('common_name', 'Guppy');})->get(),
-                        'hasGuppies' => $aquarium->hasGuppies(),
                     ]);
                 }
             } else {
@@ -136,7 +136,6 @@ class FishController extends Controller
                         'error' => 'Goldfish!!',
                         'message' => 'You cannot put Guppies and Goldfish together, please select another Aquarium',
                         'available_aquariums' => Aquariums::where('has_water', true)->whereDoesntHave('fish', function (Builder $query) {$query->where('common_name', 'Goldfish');})->get(),
-                        'hasGuppies' => $aquarium->hasGoldfish(),
                     ]);
                 }
             } else {

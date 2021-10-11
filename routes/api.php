@@ -25,12 +25,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/fish', [FishController::class, 'index']);
-Route::get('/aquariums', [AquariumController::class, 'index']);
+Route::get('/aquariums', [AquariumController::class, 'index'])->name('aquarium.index');
+Route::get('/aquarium/{aquarium}', [AquariumController::class, 'index'])->name('aquarium.show');
 
-Route::get('/fish-by-aquarium/{aquariumid}', [FishController::class, 'findByAquarium']); //Multiple options here I just do not like the default
+Route::get('/fish-by-aquarium/{aquariumid}', [FishController::class, 'findByAquarium'])->name('fish.findByAquarium'); //Multiple options here I just do not like the default
 
 //Required Protected route/s
 Route::middleware('auth:sanctum')->group(function(){
     Route::post('/fish', [FishController::class, 'create']);
     Route::patch('/fish/{fish}', [FishController::class, 'update']); //Using route model binding :) set Accept "application/json" to get the response in json.
+    Route::resource('/aquarium', AquariumController::class)->except(['index', 'show', 'edit']); //Require auth except index since that is public
 });
