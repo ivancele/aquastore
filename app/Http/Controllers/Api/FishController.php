@@ -172,7 +172,7 @@ class FishController extends Controller
             }
         }
 
-        if (isset($data['fins']) && $data['fins'] >= 3 || $fish->fins) {
+        if (isset($data['fins']) && $data['fins'] >= 3 || $fish->fins > 3) {
             if (isset($data['aquarium_id']) || $fish->aquarium_id) {
                 if(isset($data['aquarium_id'])){
                     $aquarium = Aquariums::findOrFail($data['aquarium_id']);
