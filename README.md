@@ -1,6 +1,6 @@
 # AquaStore
 
-Thank you for the opportunity to share what I have been exposed to over the years, it is a real pleasure to me.
+Thank you for the opportunity to share what I have been exposed to over the years, it is a real pleasure to me.  
 I have a few things to note.
 
 The back-end is done with Laravel 8 (the latest), to get started (*or just use the running instance as noted below*):
@@ -31,9 +31,9 @@ I have taken the liberty to deploy the backend, it is up and running on `https:/
 
 ## Side notes
 
-I have added a few database entries that I didn't use due to the time constraints.
-The country can be passed as a get param on the URL `/aquariums?country=US`
-I have also added a labels on *accessors* on laravel for Age, Temperature and Size
+I have added a few database entries that I didn't use due to the time constraints.  
+The country can be passed as a get param on the URL `/aquariums?country=US`  
+I have also added a labels on *accessors* on laravel for Age, Temperature and Size  
 
 ## Conclusion
 
